@@ -1,0 +1,4 @@
+main-domain: the-cocktail.com
+paths:
+  login: /login
+  admin-login: /admin/login
