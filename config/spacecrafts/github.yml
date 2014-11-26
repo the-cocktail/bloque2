@@ -1,0 +1,3 @@
+main-domain: github.com
+paths:
+  login: /login

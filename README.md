@@ -10,3 +10,6 @@ La Estación inicialmente constaba de la base del Bloque DOS, que estaría equip
 
 Fuente: Axisvega (http://axisvega.wordpress.com/mir/)
 
+## License
+
+Bloque2 is released under the [MIT License](http://www.opensource.org/licenses/MIT).
