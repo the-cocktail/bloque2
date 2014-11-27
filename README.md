@@ -1,6 +1,6 @@
 # Bloque2
 
-Websites observers shuttle.
+Website observers shuttle.
 
 [![Code Climate](https://codeclimate.com/github/the-cocktail/bloque2/badges/gpa.svg)](https://codeclimate.com/github/the-cocktail/bloque2)
 [![Build Status](https://travis-ci.org/the-cocktail/bloque2.svg?branch=master)](https://travis-ci.org/the-cocktail/bloque2)
