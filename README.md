@@ -4,7 +4,6 @@ Website observers shuttle.
 
 [![Code Climate](https://codeclimate.com/github/the-cocktail/bloque2/badges/gpa.svg)](https://codeclimate.com/github/the-cocktail/bloque2)
 [![Build Status](https://travis-ci.org/the-cocktail/bloque2.svg?branch=master)](https://travis-ci.org/the-cocktail/bloque2)
-[![Coverage Status](https://coveralls.io/repos/the-cocktail/bloque2/badge.png)](https://coveralls.io/r/the-cocktail/bloque2)
 
 ## Sobre la Estación M.I.R.
 **Como si de una diosa se tratase**, conocedora de todo lo útil que ha aparecido en Internet desde la última vez que se acostó, así como la forma más adecuada de adaptarlo a la misma para que esta continúe mejorando la comunicación entre los seres humanos, **La Estación M.I.R. sabe en todo momento evaluar la presencia de cualquier sitio existente en La Red**.
