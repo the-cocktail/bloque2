@@ -1,4 +1,3 @@
-require 'byebug'
 require 'minitest/autorun'
 require_relative '../../lib/bloque2/launcher'
 include Bloque2
@@ -35,14 +34,39 @@ describe 'Launcher' do
     @launcher.cruising.must_equal @launcher.spacecrafts - (@launcher.pending + @launcher.landed)
   end
 
-  it '#just_landed! should let us land an spacecraft' do
-    @launcher.retrieve_spacecrafts!
-    spacecraft = @launcher.launch_spacecraft!
-    @launcher.just_landed! spacecraft
-    @launcher.landed.must_include spacecraft
-  end
+  describe 'Landing' do
+    before do
+      @launcher.retrieve_spacecrafts!
+      @spacecraft = @launcher.launch_spacecraft!
+    end
 
-  it '#just_landed! spacecraft should raise an error if the spacecraft does not exist' do
-    proc {@launcher.just_landed!('config/space_stars/sun.yml')}.must_raise ArgumentError
+    it '#just_landed! should let us land an spacecraft (by default with the worst score)' do
+      @launcher.just_landed! @spacecraft
+      @launcher.landed.must_include @spacecraft
+      @launcher.score(@spacecraft).must_equal 0
+    end
+  
+    it '#just_landed! spacecraft should raise an error if the spacecraft does not exist' do
+      proc {
+        @launcher.just_landed!('config/space_stars/sun.yml')
+      }.must_raise ArgumentError
+    end
+
+    it '#just_landed! should accept and store a landing score for the spacecraft' do
+      @launcher.just_landed! @spacecraft, 97
+      @launcher.score(@spacecraft).must_equal 97
+    end
+
+    it '#just_landed! should raise an exception if the score given is bigger than 100' do
+      proc {
+        @launcher.just_landed! @spacecraft, 101
+      }.must_raise ArgumentError
+    end
+
+    it '#just_landed! should raise an exception if the score given is less than 0' do
+      proc {
+        @launcher.just_landed! @spacecraft, -1
+      }.must_raise ArgumentError
+    end
   end
 end

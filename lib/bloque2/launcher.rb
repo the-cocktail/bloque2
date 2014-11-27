@@ -3,11 +3,11 @@ module Bloque2
   class Launcher
     def initialize
       @spacecrafts = Dir['config/spacecrafts/*.yml']
-      @parked, @cruising, @landed = @spacecrafts.dup, [], []
+      @parked, @cruising, @landed = @spacecrafts.dup, [], {}
     end
 
     def retrieve_spacecrafts!
-      @cruising, @landed, @parked = [], [], @spacecrafts.dup
+      @cruising, @landed, @parked = [], {}, @spacecrafts.dup
     end
 
     def spacecrafts
@@ -19,11 +19,11 @@ module Bloque2
     end
 
     def pending
-      @spacecrafts - @cruising - @landed
+      @spacecrafts - @cruising - @landed.keys
     end
 
     def landed
-      @landed
+      @landed.keys
     end
 
     def launch_spacecraft!
@@ -36,12 +36,19 @@ module Bloque2
       @cruising
     end 
 
-    def just_landed! spacecraft
+    def just_landed! spacecraft, score = 0
+      if score < 0 or score > 100 
+        raise ArgumentError, 'Landing "score" should be between 0 (worst landing) an 100 (best one!).'
+      end
       if @cruising.include?(spacecraft)
-        @landed << @cruising.delete(spacecraft)
+        @landed[@cruising.delete(spacecraft)] = score
       else
         raise ArgumentError, 'Spacecraft not found in space.'
       end
+    end
+
+    def score spacecraft
+      @landed[spacecraft]
     end
   end
 end
