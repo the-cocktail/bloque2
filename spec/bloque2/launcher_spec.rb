@@ -1,5 +1,4 @@
-require 'minitest/autorun'
-require_relative '../../lib/bloque2/launcher'
+require 'spec_helper'
 include Bloque2
 
 describe 'Launcher' do
