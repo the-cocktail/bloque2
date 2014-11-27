@@ -1,4 +1,3 @@
-require 'uri'
 module Bloque2
   class Launcher
     def initialize
