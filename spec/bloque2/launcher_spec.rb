@@ -27,10 +27,9 @@ describe 'Launcher' do
 
   it '#launch_spacecraft! should launch one spacecraft and return its filename' do
     pending, cruising = @launcher.pending.size, @launcher.cruising.size
-    @launcher.launch_spacecraft!.wont_be_nil
+    assert File.exist?(@launcher.launch_spacecraft!)
     @launcher.pending.size.must_equal pending - 1
-    @launcher.cruising.size.must_be :>, 0
-    @launcher.cruising.must_equal @launcher.spacecrafts - (@launcher.pending + @launcher.landed)
+    @launcher.cruising.size.must_equal cruising + 1
   end
 
   describe 'Landing' do
