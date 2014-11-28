@@ -1,7 +1,7 @@
 module Bloque2
   class Launcher
     def initialize
-      @spacecrafts = Dir['config/spacecrafts/*.yml']
+      @spacecrafts = Dir['config/missions/*.yml']
       @parked, @cruising, @landed = @spacecrafts.dup, [], {}
     end
 

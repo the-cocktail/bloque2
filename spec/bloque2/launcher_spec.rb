@@ -6,12 +6,12 @@ describe 'Launcher' do
     @launcher = Launcher.new
   end
 
-  it 'should have its spacecrafts defined in the config/spacecrafts directory' do
-    Dir['config/spacecrafts/*.yml'].size.must_be :>, 0
+  it 'should have available missions defined in the config/missions directory' do
+    Dir['config/missions/*.yml'].size.must_be :>, 0
   end
 
-  it 'should have as many spacecrafts as YAML files in the config directory' do
-    @launcher.spacecrafts.size.must_equal Dir['config/spacecrafts/*.yml'].size
+  it 'should have as many spacecrafts as YAML files in the missions directory' do
+    @launcher.spacecrafts.size.must_equal Dir['config/missions/*.yml'].size
   end
 
   it 'all spacecrafts should be parked, cruising or landed' do
@@ -38,7 +38,7 @@ describe 'Launcher' do
       @spacecraft = @launcher.launch_spacecraft!
     end
 
-    it '#just_landed! should let us land an spacecraft (by default with the worst score)' do
+    it '#just_landed! should let us land a spacecraft (by default with the worst score)' do
       @launcher.just_landed! @spacecraft
       @launcher.landed.must_include @spacecraft
       @launcher.score(@spacecraft).must_equal 0
