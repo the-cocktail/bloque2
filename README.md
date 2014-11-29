@@ -9,37 +9,33 @@
 
 ![Foto de la MIR](app/assets/images/mir_500px.jpg)
 
-## Sobre el Bloque DOS
+## Sobre el verdadero Bloque DOS
+
 La Estación inicialmente constaba de la base del Bloque DOS, que estaría equipada con cuatro puertos de atraque, dos en cada extremo, y dos puertos adicionales en una esfera de acoplamiento en la parte frontal de la estación. Finalmente, en agosto de 1978, evolucionó a un puerto en la parte de popa y cinco puertos en proa, en forma de esfera (nodo).
 
 Fuente: Axisvega (http://axisvega.wordpress.com/mir/)
 
-## Sobre el Bloque2
+### Sobre nuestro Bloque2
 
-Estaría compuesto por tres programas de línea de comandos:
+Estaría compuesto por tres ejecutables:
 
-* Uno de lanzamiento de Spacecrafts desde La Estación M.I.R. (**launch_spacecrafts**).
-* Otro que realiza la evaluación asignada a un Spacecraft (**evaluate_website.rb**).
-* Y otro para ver un resumen de los resultados obtenidos (**show_reports.rb**)
+* Uno de lanzamiento de _Spacecrafts_ desde _La Estación M.I.R._ (**launch_spacecrafts.rb**) con _una misión_ asignada.
+* Otro que ordena el comienzo de _la misión_ asignada a una _Spacecraft_ (**evaluate_website.rb**).
+* Y otro para ver un resumen de los resultados obtenidos por las distintas _Spacecrafts_ (**show_reports.rb**)
 
 Este podría ser el código de ejemplo de lo que sería lanzar una nave (que asumiría una misión por defecto de las disponibles en **config/missions**), después ordenar a un equipo humano que comience la misión asignada a dicha nave, y finalmente aterrizarla de nuevo en La Estación M.I.R. junto con la puntuación obtenida por el sitio web al que hacía referencia su misión:
 <pre>
 # Instanciamos una lanzadera:
-mir_station = Launcher.new
+**mir_station = Launcher.new**
 # Lanzamos una nave:
-spacecraft = mir_station.launch_spacecraft!
+**spacecraft = mir_station.launch_spacecraft!**
 # Mandamos a un equipo que realice su misión:
-report = HumanTeam.new(spacecraft).evaluate_website!
-# En cualquier momento podemos solicitar que aterricen:
-mir_station.please_land(spacecraft)
-# E incluso ordenarlo:
-mir_station.please_land!(spacecraft)
-# En ambos casos la llamada nos devolverá el porcentaje realizado.
-# Cuando el equipo termina su misión aterriza sólo llamando a:
-mir_station.just_landed! spacecraft, report[:score]
+**report = HumanTeam.new(spacecraft).evaluate_website!**
+# Cuando el equipo termina su misión la reporta:
+**mir_station.just_landed! spacecraft, report[:score]**
 </pre>
 
-Podría ser algo así. La motivación detrás de toda esta ceremonia es que la suite pueda correr en segundo plano y que las exploraciones de cada sitio web sean independientes pudiendose realizar en paralelo (en principio con RabbitMQ en mente para la implementación inicial).
+Podría ser algo así. La motivación detrás de esta ceremonia es que la suite pueda correr en segundo plano y que las exploraciones de cada sitio web sean independientes, podiendo realizarlas eventualmente en paralelo y con RabbitMQ en mente para la implementación inicial.
 
 
 ## License
