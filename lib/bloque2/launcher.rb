@@ -1,53 +1,44 @@
+require_relative 'launcher/memory_docking_port'
 module Bloque2
   class Launcher
-    def initialize
+    def initialize(persistence = :memory)
       @spacecrafts = Dir['config/missions/*.yml']
-      @parked, @cruising, @landed = @spacecrafts.dup, [], {}
+      @docking_port = Bloque2::MemoryDockingPort.new(@spacecrafts)
     end
 
     def retrieve_spacecrafts!
-      @cruising, @landed, @parked = [], {}, @spacecrafts.dup
+      @docking_port.retrieve_spacecrafts!
     end
 
     def spacecrafts
       @spacecrafts
     end
 
-    def parked
-      @parked
-    end
-
     def pending
-      @spacecrafts - @cruising - @landed.keys
-    end
-
-    def landed
-      @landed.keys
-    end
-
-    def launch_spacecraft!
-      spacecraft = @parked.shift
-      @cruising << spacecraft
-      spacecraft
+      @docking_port.pending
     end
     
     def cruising
-      @cruising
+      @docking_port.cruising
     end 
+
+    def landed
+      @docking_port.landed.keys
+    end
+
+    def launch_spacecraft!
+      @docking_port.launch_spacecraft!
+    end
 
     def just_landed! spacecraft, score = 0
       if score < 0 or score > 100 
         raise ArgumentError, 'Landing "score" should be between 0 (worst landing) an 100 (best one!).'
       end
-      if @cruising.include?(spacecraft)
-        @landed[@cruising.delete(spacecraft)] = score
-      else
-        raise ArgumentError, 'Spacecraft not found in space.'
-      end
+      @docking_port.just_landed! spacecraft, score
     end
 
     def score spacecraft
-      @landed[spacecraft]
+      @docking_port.landed[spacecraft]
     end
   end
 end
