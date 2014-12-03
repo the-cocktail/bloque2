@@ -1,9 +1,10 @@
-require_relative 'launcher/memory_docking_port'
+require_relative 'disk_docking_port'
+require_relative 'memory_docking_port'
 module Bloque2
   class Launcher
     def initialize(persistence = :memory)
       @spacecrafts = Dir['config/missions/*.yml']
-      @docking_port = Bloque2::MemoryDockingPort.new(@spacecrafts)
+      @docking_port = eval(persistence.to_s.capitalize + 'DockingPort').new(@spacecrafts)
     end
 
     def retrieve_spacecrafts!
