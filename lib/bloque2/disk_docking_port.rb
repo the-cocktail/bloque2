@@ -2,7 +2,7 @@ require 'json'
 
 module Bloque2
   class DiskDockingPort
-    DOCKING_PORT_FILE = '/tmp/bloque2_docking_port.json'
+    DOCKING_PORT_FILE = "/tmp/bloque2_docking_port#{ENV['bloque2_env']}.json"
     def initialize(missions)
       if File.exists?(DOCKING_PORT_FILE)
         read_missions_from_json_file

@@ -1,3 +1,4 @@
+ENV['bloque2_env'] = 'test'
 require 'rake/testtask'
 
 task :default => [:test]
