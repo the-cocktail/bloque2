@@ -1,0 +1,3 @@
+main-domain: archive.org
+paths:
+  login: /account/login.php
