@@ -1,7 +1,7 @@
 require 'spec_helper'
 include Bloque2
 
-[:memory, :disk].each do |dock_type|
+[:memory, :disk, :rabbitmq].each do |dock_type|
   describe "#{dock_type.capitalize}DockingPort" do
     before do
       @launcher = Launcher.new(dock_type)
@@ -15,17 +15,17 @@ include Bloque2
       (@launcher.spacecrafts - @launcher.pending - @launcher.cruising - @launcher.landed).must_equal []
     end
 
-    it 'after retrieval #pending should return all the spacecrafts' do
-      @launcher.retrieve_spacecrafts!
-      @launcher.pending.size.must_equal @launcher.spacecrafts.size
-      @launcher.cruising.size.must_equal 0
-    end
-   
     it '#launch_spacecraft! should launch one spacecraft and return its filename' do
       pending, cruising = @launcher.pending.size, @launcher.cruising.size
       assert File.exist?(@launcher.launch_spacecraft!)
       @launcher.pending.size.must_equal pending - 1
       @launcher.cruising.size.must_equal cruising + 1
+    end
+   
+    it 'after retrieval #pending should return all the spacecrafts' do
+      @launcher.retrieve_spacecrafts!
+      @launcher.pending.size.must_equal @launcher.spacecrafts.size
+      @launcher.cruising.size.must_equal 0
     end
    
     describe 'Landing' do

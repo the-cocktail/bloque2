@@ -1,3 +1,4 @@
+require_relative 'rabbitmq_docking_port'
 require_relative 'disk_docking_port'
 require_relative 'memory_docking_port'
 module Bloque2
@@ -39,7 +40,11 @@ module Bloque2
     end
 
     def score spacecraft
-      @docking_port.landed[spacecraft]
+      if @docking_port.landed[spacecraft]
+        @docking_port.landed[spacecraft]['score']
+      else
+        raise ArgumentError, "Spacefraft not landed (#{spacecraft})."
+      end
     end
   end
 end

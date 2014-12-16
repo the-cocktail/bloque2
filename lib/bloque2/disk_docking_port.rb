@@ -36,7 +36,7 @@ module Bloque2
       read_missions_from_json_file
       if mission = @pending.shift
         @cruising << mission
-        @missions_hash[mission] = {score: -2}
+        @missions_hash[mission] = {'score'=> -2}
         write_missions_hash
         mission
       end
@@ -45,7 +45,7 @@ module Bloque2
     def just_landed! spacecraft, score = 0
       read_missions_from_json_file
       if @cruising.include?(spacecraft)
-        @missions_hash[@cruising.delete(spacecraft)] = {score: score}
+        @missions_hash[@cruising.delete(spacecraft)] = {'score'=> score}
         write_missions_hash
       else
         raise ArgumentError, 'Spacecraft not found cruising (already landed?)'
@@ -55,13 +55,13 @@ module Bloque2
   private
     def missions_hash_ready_to_start(missions = nil)
       missions ||= @missions_hash.keys
-      Hash[missions.map {|mission| [mission, {score: -1}]}]
+      Hash[missions.map {|mission| [mission, {'score'=> -1}]}]
     end
 
     def write_missions_hash(missions = nil)
       if missions
         missions.each do |mission|
-          @missions_hash[mission] = {score: -1}
+          @missions_hash[mission] = {'score'=> -1}
         end
       end
       File.open(DOCKING_PORT_FILE, 'w') do |json_file|
@@ -82,7 +82,7 @@ module Bloque2
           when -1 then @pending << mission
           when -2 then @cruising << mission
         else
-          @landed[mission] = report['score']
+          @landed[mission] = report
         end
       end
     end

@@ -30,7 +30,7 @@ module Bloque2
 
     def just_landed! spacecraft, score = 0
       if @cruising.include?(spacecraft)
-        @landed[@cruising.delete(spacecraft)] = score
+        @landed[@cruising.delete(spacecraft)] = {'score' => score}
       else
         raise ArgumentError, 'Spacecraft not found cruising (already landed?)'
       end
