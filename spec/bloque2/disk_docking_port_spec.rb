@@ -2,11 +2,14 @@ require 'spec_helper'
 include Bloque2
 
 describe DiskDockingPort do
-    before :all do
-      Launcher.new(:disk).retrieve_spacecrafts! # Let's start from scratch
-    end
+  @@before_all_called = false
 
   before do
+    unless @@before_all_called # DIY before(:all) w/ warning included :(
+      Launcher.new(:disk).retrieve_spacecrafts! # Let's start from scratch
+      @@before_all_called = true
+    end
+
     @launcher = Launcher.new(:disk)
     @first_launch = @launcher.launch_spacecraft!
   end
