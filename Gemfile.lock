@@ -1,10 +1,14 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    amq-protocol (1.9.2)
+    bunny (1.6.3)
+      amq-protocol (>= 1.9.2)
     rake (10.4.0)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  bunny
   rake
